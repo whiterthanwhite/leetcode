@@ -1,32 +1,26 @@
 package assigncookies
 
-import "fmt"
-
 func findContentChildren(g []int, s []int) int {
 	N := len(g)
 	M := len(s)
 	if N == 0 || M == 0 {
 		return 0
 	}
+
 	shellSort(g)
 	shellSort(s)
 	cookiePair := 0
-	var t []int
+	j := 0
 	for i := 0; i < N; i++ {
-		for j := 0; j < M; j++ {
-			if s[j] >= g[i] {
-				fmt.Println(s[j], g[i])
-				cookiePair++
-				t = s[:j]
-				if j < M-1 {
-					t = append(t, s[j+1:]...)
-				}
-				s = t
-				M = len(s)
-				break
-			}
+		if s[j] >= g[i] {
+			cookiePair++
+			j++
+		}
+		if j == M {
+			break
 		}
 	}
+
 	return cookiePair
 }
 
