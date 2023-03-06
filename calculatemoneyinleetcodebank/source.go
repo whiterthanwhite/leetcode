@@ -2,20 +2,16 @@ package calculatemoneyinleetcodebank
 
 func totalMoney(n int) int {
 	total := 0
-	startValue := 1
-	for n > 7 {
-		total += calculateWeek(startValue, 7)
-		startValue++
-		n -= 7
+	N := n / 7
+	if N > 0 {
+		for i := 1; i <= N; i++ {
+			total += 28 + (i-1)*7
+		}
+		n -= N * 7
 	}
-	total += calculateWeek(startValue, n)
-	return total
-}
-
-func calculateWeek(x, n int) int {
-	sum := 0
+	startValue := N + 1
 	for i := 1; i <= n; i++ {
-		sum += x + (i - 1)
+		total += startValue + (i - 1)
 	}
-	return sum
+	return total
 }
