@@ -36,6 +36,12 @@ func TestAddToArrayForm(t *testing.T) {
 			expected: []int{1, 2, 6, 3, 0, 7, 1, 7, 1, 9, 7, 5, 6, 6, 4, 4, 0, 5, 7, 9},
 			k:        516,
 		},
+		{
+			name:     "test 5",
+			input:    []int{0},
+			expected: []int{2, 3},
+			k:        23,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
