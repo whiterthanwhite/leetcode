@@ -1,19 +1,20 @@
 package fizzbuzz
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func fizzBuzz(n int) []string {
 	answer := make([]string, n)
-	for i := 0; i < n; i++ {
-		x := i + 1
-		if x%3 == 0 && x%5 == 0 {
-			answer[i] = "FizzBuzz"
-		} else if x%5 == 0 {
-			answer[i] = "Buzz"
-		} else if x%3 == 0 {
-			answer[i] = "Fizz"
+	for i := 1; i <= n; i++ {
+		if i%15 == 0 {
+			answer[i-1] = "FizzBuzz"
+		} else if i%3 == 0 {
+			answer[i-1] = "Fizz"
+		} else if i%5 == 0 {
+			answer[i-1] = "Buzz"
 		} else {
-			answer[i] = fmt.Sprint(x)
+			answer[i-1] = fmt.Sprintf("%d", i)
 		}
 	}
 	return answer
