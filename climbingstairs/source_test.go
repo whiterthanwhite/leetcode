@@ -41,12 +41,12 @@ func TestClimbStairs(t *testing.T) {
 		{
 			name:     "test 7",
 			input:    8,
-			expected: 29,
+			expected: 34,
 		},
 		{
 			name:     "test 8",
 			input:    9,
-			expected: 40,
+			expected: 55,
 		},
 	}
 	for _, tt := range tests {
