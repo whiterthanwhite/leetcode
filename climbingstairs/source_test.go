@@ -48,6 +48,11 @@ func TestClimbStairs(t *testing.T) {
 			input:    9,
 			expected: 55,
 		},
+		{
+			name:     "test 9",
+			input:    45,
+			expected: 1836311903,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
