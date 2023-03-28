@@ -1,15 +1,10 @@
 package slowestkey
 
 func slowestKey(releaseTimes []int, keysPressed string) byte {
-	var maxKey byte
-	var maxTime int
-	for i := range keysPressed {
-		t := 0
-		if i == 0 {
-			t = releaseTimes[i]
-		} else {
-			t = releaseTimes[i] - releaseTimes[i-1]
-		}
+	maxKey := keysPressed[0]
+	maxTime := releaseTimes[0]
+	for i := 1; i < len(releaseTimes); i++ {
+		t := releaseTimes[i] - releaseTimes[i-1]
 
 		if maxTime < t {
 			maxTime = t
