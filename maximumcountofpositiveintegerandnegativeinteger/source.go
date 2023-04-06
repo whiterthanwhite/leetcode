@@ -1,17 +1,18 @@
 package maximumcountofpositiveintegerandnegativeinteger
 
 func maximumCount(nums []int) int {
-	var pos, neg int32
-	for i := 0; i < len(nums); i++ {
-		if nums[i] > 0 {
-			pos++
-		} else if nums[i] < 0 {
-			neg++
-		}
+	N := len(nums)
+	pos, neg := 0, 0
+	for N > 0 && nums[N-1] > 0 {
+		pos++
+		N--
+	}
+	for i := 0; i < N && nums[i] < 0; i++ {
+		neg++
 	}
 	if pos < neg {
-		return int(neg)
+		return neg
 	} else {
-		return int(pos)
+		return pos
 	}
 }
