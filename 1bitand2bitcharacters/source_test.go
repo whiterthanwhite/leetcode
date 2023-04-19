@@ -24,6 +24,11 @@ func TestIsOneBitCharacter(t *testing.T) {
 			input:    []int{1, 1, 0},
 			expected: true,
 		},
+		{
+			name:     "test 4",
+			input:    []int{0, 1, 0},
+			expected: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
