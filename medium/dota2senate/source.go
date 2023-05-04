@@ -1,55 +1,34 @@
 package dota2senate
 
-import "fmt"
-
 func predictPartyVictory(senate string) string {
 	N := len(senate)
-	radiantQueue := queue{}
-	direQueue := queue{}
-
+	votersQueue := queue{}
 	for i := 0; i < N; i++ {
-		switch senate[i] {
-		case 'R':
-			radiantQueue.enqueue('R')
-		case 'D':
-			direQueue.enqueue('D')
-		}
+		votersQueue.enqueue(senate[i])
 	}
-
 	direSkip := 0
 	radiantSkip := 0
-	i := 0
-	newSenate := make([]byte, 0)
-	for !direQueue.isEmpty() && !radiantQueue.isEmpty() {
-		switch senate[i] {
+	for votersQueue.direCount != 0 && votersQueue.radiantCount != 0 {
+		voter := votersQueue.dequeue()
+		switch voter {
 		case 'R':
 			if radiantSkip > 0 {
-				radiantQueue.dequeue()
 				radiantSkip--
 			} else {
 				direSkip++
-				newSenate = append(newSenate, 'R')
+				votersQueue.enqueue(voter)
 			}
 		case 'D':
 			if direSkip > 0 {
-				direQueue.dequeue()
 				direSkip--
 			} else {
 				radiantSkip++
-				newSenate = append(newSenate, 'D')
+				votersQueue.enqueue(voter)
 			}
-		}
-		i++
-		if i == N {
-			fmt.Println(string(newSenate))
-			senate = string(newSenate)
-			i = 0
-			N = len(senate)
-			newSenate = make([]byte, 0)
 		}
 	}
 
-	if !radiantQueue.isEmpty() {
+	if votersQueue.radiantCount > 0 {
 		return "Radiant"
 	} else {
 		return "Dire"
@@ -62,8 +41,10 @@ type node struct {
 }
 
 type queue struct {
-	first *node
-	last  *node
+	first        *node
+	last         *node
+	radiantCount int
+	direCount    int
 }
 
 func (q queue) isEmpty() bool {
@@ -80,10 +61,22 @@ func (q *queue) enqueue(item byte) {
 	} else {
 		oldLast.next = q.last
 	}
+	switch item {
+	case 'R':
+		q.radiantCount++
+	case 'D':
+		q.direCount++
+	}
 }
 
 func (q *queue) dequeue() byte {
 	item := q.first.item
+	switch item {
+	case 'R':
+		q.radiantCount--
+	case 'D':
+		q.direCount--
+	}
 	q.first = q.first.next
 	if q.isEmpty() {
 		q.last = nil
